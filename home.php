@@ -478,7 +478,7 @@
                         <ul class="list-group mt-3">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
-                                    <i class="item_name"></i>example item
+                                    <i class="item_name"></i>example items
                                 </div>
                                 <div>
                                     <button class="btn btn-sm btn-outline-primary me-2"><i
