@@ -1,0 +1,83 @@
+.custom-card {
+    border-radius: 30px;
+    overflow: hidden; /* To ensure the rounded corners are maintained */
+}
+.center-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal.fade .modal-dialog {
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    -moz-transition: -moz-transform 0.3s ease-out;
+    -o-transition: -o-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+}
+.modal.fade.show .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.modal.fade.show .modal-dialog.animate__animated.animate__bounceIn {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.modal.fade .modal-dialog.animate__bounceIn {
+    -webkit-transform: translate(0, 300%);
+    -moz-transform: translate(0, 300%);
+    -ms-transform: translate(0, 300%);
+    -o-transform: translate(0, 300%);
+    transform: translate(0, 300%);
+}
+.modal.fade .modal-dialog.animate__zoomIn {
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    -o-transform: scale(0.1);
+    transform: scale(0.1);
+}
+.modal.fade .modal-dialog.animate__fadeInLeft {
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+.modal.fade .modal-dialog.animate__rotateIn {
+    -webkit-transform: rotate(-200deg);
+    -moz-transform: rotate(-200deg);
+    -ms-transform: rotate(-200deg);
+    -o-transform: rotate(-200deg);
+    transform: rotate(-200deg);
+}
+@keyframes slide-left {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-right {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.modal.slide-left .modal-dialog {
+    animation: slide-left 0.5s forwards;
+}
+
+.modal.slide-right .modal-dialog {
+    animation: slide-right 0.5s forwards;
+}
