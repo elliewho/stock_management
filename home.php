@@ -496,47 +496,85 @@
     </div>
 
 
-    <!--stock card modal-->
-    <div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
-        aria-labelledby="stockModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header sticky-top bg-light">
-                    <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;"><strong>Stock
-                            Card</strong></h5>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center" style="margin-top: 5px;">
-                        <div class="input-group" style="width: 70%;">
-                            <input type="text" class="form-control" id="searchBar" placeholder="Search files..."
-                                maxlength="30">
-                            <button class="btn btn-primary" type="button" id="searchButton"><i
-                                    class="bi bi-search"></i></button>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <!-- File list -->
-                        <ul class="list-group mt-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <i class="item_name"></i>example items
-                                </div>
-                                <div>
-                                    <button class="btn btn-sm btn-outline-primary me-2"><i class="bi bi-eye"></i></button>
-                                    <button class="btn btn-sm btn-outline-success"><i class="bi bi-printer"></i></button>
-                                </div>
-                            </li>
-                            <!-- Add more files as needed -->
-                        </ul>
+    <!-- stock card modal -->
+<div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
+    aria-labelledby="stockModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header sticky-top bg-light">
+                <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;"><strong>Stock Card</strong></h5>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center" style="margin-top: 5px;">
+                    <div class="input-group" style="width: 70%;">
+                        <input type="text" class="form-control" id="searchBar" placeholder="Search files..." maxlength="30">
+                        <button class="btn btn-primary" type="button" id="searchButton"><i class="bi bi-search"></i></button>
                     </div>
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
-                            class="bi bi-box-arrow-left"></i></button>
+                <div class="mt-4">
+                    <!-- File list -->
+                    <ul class="list-group mt-3" id="fileList">
+                        <!-- Dynamic items will be appended here -->
+                    </ul>
                 </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i class="bi bi-box-arrow-left"></i></button>
             </div>
         </div>
     </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    fetchItems();
+
+    document.getElementById('searchButton').addEventListener('click', function () {
+        const searchTerm = document.getElementById('searchBar').value;
+        fetchItems(searchTerm);
+    });
+});
+
+function fetchItems(searchTerm = '') {
+    fetch('api.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ search: searchTerm })
+    })
+    .then(response => response.json())
+    .then(data => populateItems(data))
+    .catch(error => console.error('Error fetching items:', error));
+}
+
+function populateItems(items) {
+    const fileList = document.getElementById('fileList');
+    fileList.innerHTML = '';  // Clear the list
+
+    items.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+        const itemDiv = document.createElement('div');
+        itemDiv.textContent = item.item_name;
+
+        const buttonDiv = document.createElement('div');
+        buttonDiv.innerHTML = `
+            <button class="btn btn-sm btn-outline-primary me-2"><i class="bi bi-eye"></i></button>
+            <button class="btn btn-sm btn-outline-success"><i class="bi bi-printer"></i></button>
+        `;
+
+        listItem.appendChild(itemDiv);
+        listItem.appendChild(buttonDiv);
+
+        fileList.appendChild(listItem);
+    });
+}
+
+function reloadPage() {
+    location.reload();
+}
+</script>
 
 
     <!--bin card modal-->
