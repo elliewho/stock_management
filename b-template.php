@@ -1,13 +1,16 @@
-<?php include 'db_connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bin Card</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bin Card</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://www.parfait.com.ph/images/product-icon/philhealth-icon.png">
   <style>
+    body{
+        font-family: Georgia,Times,Times New Roman,serif; 
+    }
         .table-bordered th, .table-bordered td {
             border: 1px solid black !important;
         }
@@ -31,18 +34,15 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-12 header-text">
-                <h2>PhilHealth</h2>
-                <h4>Bin Card</h4>
-                <h5>Your Partner in Health</h5>
+                <h2><strong>BIN CARD<br>PRO NCR CENTRAL BRANCH<p style="font-size: 30px">Your Partner in Health</strong></p></strong></h2>
+                
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-2">
-                <p><strong>Article</strong></p>
-                <p><strong>Description</strong></p>
+            <div class="col-2 bold-text">
+                Item:
             </div>
-            <div class="col-10">
-                <p>...</p>
+            <div class="col-4">
                 <p>...</p>
             </div>
         </div>
@@ -51,24 +51,29 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr class="description-row">
-                            <th rowspan="2">Date Received/Issued</th>
-                            <th rowspan="2">SWS/RIS/Transaction no.</th>
-                            <th colspan="3">QUANTITY</th>
-                            <th rowspan="2">Issued By</th>
+                            <th rowspan="2">Date</th>
+                            <th rowspan="2">Reference</th>
+                            <th colspan="2">Receipt</th>
+                            <th colspan="2">Issuance</th>
+                            <th rowspan="2">Balance Qty.</th>
+                            <th rowspan="2">No. Of Days to</th>
                         </tr>
                         <tr class="description-row">
-                            <th>Received</th>
-                            <th>Issued</th>
-                            <th>Balance on Hand</th>
+                            <th>Qty.</th>
+                            <th>Qty.</th>
+                            <th>Office</th>
+                            <th>Qty.</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1/31/2024</td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>6</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -77,10 +82,7 @@
         </div>
     </div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
