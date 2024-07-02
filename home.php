@@ -77,7 +77,7 @@
                                 Supply</strong></h4>
                         <ul class="pagination" style="margin-bottom: 20px">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#rModal">
+                                data-bs-target="#rModal" style="font-size: 10px; padding: 8px; border-radius: 100px">
                                 <i class="bi bi-arrow-right-short"></i>
                             </button>
                         </ul>
@@ -127,9 +127,9 @@
                     </table>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal"
                         data-bs-dismiss="modal"><i class="bi bi-plus-circle"></i> Add Item</button>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#secModal"
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#secModal"
                         data-bs-dismiss="modal"><i class="bi bi-eye"></i> View Request by Section</button>
                 </div>
             </div>
@@ -155,13 +155,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="rModalLabel"><strong>Inventory</strong></h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="padding: 15px">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h4 style="text-align: center; flex-grow: 1; margin-bottom: 20px;"><strong>IT Supply</strong>
                         </h4>
-                        <button type="button" class="btn btn-primary btn-md" data-bs-dismiss="modal" aria-label="Close">
+                        <button type="button" class="btn btn-primary btn-md" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 10px; padding: 8px; border-radius: 100px">
                             <i class="bi bi-arrow-left-short"></i>
                         </button>
                         </h4>
@@ -178,7 +178,35 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                            if ($result->num_rows > 0) {
+                                $result->data_seek(0);
+                                while ($row = $result->fetch_assoc()) {
+                                    if ($row["category"] == "IT Supply") {
+                                        $total_received_quantity = $row["receivedQuantity"];
 
+                                        echo "<tr>";
+                                        echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
+                                        echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
+                                        echo "<td style='text-align: center'>" . $row["receivedQuantity"] . "</td>";
+                                        echo "<td style='text-align: center'>" . $row["utilization"] . "</td>"; // Utilization (to be added)
+                                        echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>"; // Balance as of
+                                        echo "<td style='text-align: center'>
+                                            <button class='btn btn-success btn-sm' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='setUpdateModalData(" . json_encode($row) . ")'>
+                                                <i class='bi bi-plus-slash-minus'></i>
+                                            </button>
+                                            <button class='btn btn-danger btn-sm delete-btn' data-id='" . $row["id"] . "'>
+                                                <i class='bi bi-backspace'></i>
+                                            </button>
+                                        </td>";
+                                        echo "</tr>";
+                                    }
+                                }
+                            } else {
+                                echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
+                            }
+
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -314,6 +342,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search..."
+                        style="max-width: 250px">
+
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -329,22 +360,22 @@
                                 <th style="text-align: center; width: auto;">TOTAL</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableBody">
                             <?php
                             include 'db_connect.php';
                             // Fetch items and their totals per destination
                             $sql = "SELECT item_name,
-                                SUM(CASE WHEN destination = 'MALASAKIT / CARES' THEN quantity ELSE 0 END) AS malasakit_cares,
-                                SUM(CASE WHEN destination = 'MTS / OM' THEN quantity ELSE 0 END) AS mts_om,
-                                SUM(CASE WHEN destination = 'MEMSEC' THEN quantity ELSE 0 END) AS memsec,
-                                SUM(CASE WHEN destination = 'COLSEC' THEN quantity ELSE 0 END) AS colsec,
-                                SUM(CASE WHEN destination = 'BAS' THEN quantity ELSE 0 END) AS bas,
-                                SUM(CASE WHEN destination = 'LHIO QC' THEN quantity ELSE 0 END) AS lhio_qc,
-                                SUM(CASE WHEN destination = 'LHIO RIZAL' THEN quantity ELSE 0 END) AS lhio_rizal,
-                                SUM(CASE WHEN destination = 'LHIO FAIRVIEW' THEN quantity ELSE 0 END) AS lhio_fairview,
-                                SUM(quantity) AS total
-                                FROM request
-                                GROUP BY item_name";
+                            SUM(CASE WHEN destination = 'MALASAKIT / CARES' THEN quantity ELSE 0 END) AS malasakit_cares,
+                            SUM(CASE WHEN destination = 'MTS / OM' THEN quantity ELSE 0 END) AS mts_om,
+                            SUM(CASE WHEN destination = 'MEMSEC' THEN quantity ELSE 0 END) AS memsec,
+                            SUM(CASE WHEN destination = 'COLSEC' THEN quantity ELSE 0 END) AS colsec,
+                            SUM(CASE WHEN destination = 'BAS' THEN quantity ELSE 0 END) AS bas,
+                            SUM(CASE WHEN destination = 'LHIO QC' THEN quantity ELSE 0 END) AS lhio_qc,
+                            SUM(CASE WHEN destination = 'LHIO RIZAL' THEN quantity ELSE 0 END) AS lhio_rizal,
+                            SUM(CASE WHEN destination = 'LHIO FAIRVIEW' THEN quantity ELSE 0 END) AS lhio_fairview,
+                            SUM(quantity) AS total
+                            FROM request
+                            GROUP BY item_name";
 
                             $result = $conn->query($sql);
 
@@ -379,6 +410,18 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Filter table rows based on input value
+        $(document).ready(function () {
+            $('#searchInput').on('keyup', function () {
+                var searchText = $(this).val().toLowerCase();
+                $('#tableBody tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(searchText) > -1);
+                });
+            });
+        });
+    </script>
     <script>
         function reloadPage() {
             window.location.reload();
@@ -470,8 +513,6 @@
                             <button class="btn btn-primary" type="button" id="searchButton"><i
                                     class="bi bi-search"></i></button>
                         </div>
-                        <button class="btn btn-success ms-2" type="button" id="uploadButton"><i
-                                class="bi bi-upload"></i> Upload</button>
                     </div>
                     <div class="mt-4">
                         <!-- File list -->
@@ -481,9 +522,8 @@
                                     <i class="item_name"></i>example items
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-outline-primary me-2"><i
-                                            class="bi bi-download"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    <button class="btn btn-sm btn-outline-primary me-2"><i class="bi bi-eye"></i></button>
+                                    <button class="btn btn-sm btn-outline-success"><i class="bi bi-printer"></i></button>
                                 </div>
                             </li>
                             <!-- Add more files as needed -->
@@ -493,8 +533,6 @@
                 <div class="modal-footer d-flex justify-content-center">
                     <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
                             class="bi bi-box-arrow-left"></i></button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i
-                            class="bi bi-printer"></i></button>
                 </div>
             </div>
         </div>
@@ -518,20 +556,17 @@
                             <button class="btn btn-primary" type="button" id="searchButton"><i
                                     class="bi bi-search"></i></button>
                         </div>
-                        <button class="btn btn-success ms-2" type="button" id="uploadButton"><i
-                                class="bi bi-upload"></i> Upload</button>
                     </div>
                     <div class="mt-4">
                         <!-- File list -->
                         <ul class="list-group mt-3">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
-                                    <i class="item_name"></i>acetate
+                                    <i class="item_name"></i>example items
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-outline-primary me-2"><i
-                                            class="bi bi-download"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    <button class="btn btn-sm btn-outline-primary me-2"><i class="bi bi-eye"></i></button>
+                                    <button class="btn btn-sm btn-outline-success"><i class="bi bi-printer"></i></button>
                                 </div>
                             </li>
                             <!-- Add more files as needed -->
@@ -583,7 +618,7 @@
                                     $(this).closest('tr').remove();
                                     Swal.fire({
                                         title: "Deleted!",
-                                        text: "Your file has been deleted.",
+                                        text: "Your file has been deleted :< ",
                                         icon: "success"
                                     });
                                 } else {
@@ -608,7 +643,7 @@
                         // User clicked cancel, show a message
                         Swal.fire({
                             title: "Cancelled",
-                            text: "Your file is safe hahahaha",
+                            text: "Your file is safe hahahaha ;P",
                             icon: "error"
                         });
                     }
