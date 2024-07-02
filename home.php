@@ -496,7 +496,7 @@
     </div>
 
 
-    <!-- stock card modal -->
+    <!-- stock card modal -->s
 <div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
     aria-labelledby="stockModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
