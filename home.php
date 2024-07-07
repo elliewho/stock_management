@@ -62,7 +62,7 @@
 
 
     <!--inventory modal-->
-    <div class="modal fade" id="invModal" aria-hidden="true" aria-labelledby="inventoryModal" tabindex="-1"
+    <div class="modal fade slide-right" id="invModal" aria-hidden="true" aria-labelledby="inventoryModal" tabindex="-1"
         role="dialog">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -494,87 +494,141 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const requestModal = document.getElementById('reqModal');
+            requestModal.addEventListener('shown.bs.modal', function () {
+                const dateInput = document.getElementById('requestdate');
+                const displayDateInput = document.getElementById('display_requestdate');
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                const day = now.getDate().toString().padStart(2, '0');
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                dateInput.value = formattedDate;
+                displayDateInput.value = formattedDate;
+            });
+        });
+    </script>
 
 
     <!-- stock card modal -->
-<div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
-    aria-labelledby="stockModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header sticky-top bg-light">
-                <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;"><strong>Stock Card</strong></h5>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex justify-content-center" style="margin-top: 5px;">
-                    <div class="input-group" style="width: 70%;">
-                        <input type="text" class="form-control" id="searchBar" placeholder="Search files..." maxlength="30">
-                        <button class="btn btn-primary" type="button" id="searchButton"><i class="bi bi-search"></i></button>
+    <div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
+        aria-labelledby="stockModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header sticky-top bg-light">
+                    <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;"><strong>Stock
+                            Card</strong></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center" style="margin-top: 5px;">
+                        <div class="input-group" style="width: 70%;">
+                            <input type="text" class="form-control" id="searchBar" placeholder="Search files..."
+                                maxlength="30">
+                            <button class="btn btn-primary" type="button" id="searchButton"><i
+                                    class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <!-- File list -->
+                        <ul class="list-group mt-3" id="fileList">
+                            <!-- Dynamic items will be appended here -->
+                        </ul>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <!-- File list -->
-                    <ul class="list-group mt-3" id="fileList">
-                        <!-- Dynamic items will be appended here -->
-                    </ul>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
+                            class="bi bi-box-arrow-left"></i></button>
                 </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i class="bi bi-box-arrow-left"></i></button>
             </div>
         </div>
     </div>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    fetchItems();
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchItems();
 
-    document.getElementById('searchButton').addEventListener('click', function () {
-        const searchTerm = document.getElementById('searchBar').value;
-        fetchItems(searchTerm);
-    });
-});
+            document.getElementById('searchButton').addEventListener('click', function () {
+                const searchTerm = document.getElementById('searchBar').value;
+                fetchItems(searchTerm);
+            });
+        });
 
-function fetchItems(searchTerm = '') {
-    fetch('api.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ search: searchTerm })
-    })
-    .then(response => response.json())
-    .then(data => populateItems(data))
-    .catch(error => console.error('Error fetching items:', error));
-}
+        function fetchItems(searchTerm = '') {
+            fetch('api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ search: searchTerm })
+            })
+                .then(response => response.json())
+                .then(data => populateItems(data))
+                .catch(error => console.error('Error fetching items:', error));
+        }
 
-function populateItems(items) {
-    const fileList = document.getElementById('fileList');
-    fileList.innerHTML = '';  // Clear the list
+        function populateItems(items) {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';  // Clear the list
 
-    items.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            items.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
 
-        const itemDiv = document.createElement('div');
-        itemDiv.textContent = item.item_name;
+                const itemDiv = document.createElement('div');
+                itemDiv.textContent = item.item_name;
 
-        const buttonDiv = document.createElement('div');
-        buttonDiv.innerHTML = `
-            <button class="btn btn-sm btn-outline-primary me-2"><i class="bi bi-eye"></i></button>
-            <button class="btn btn-sm btn-outline-success"><i class="bi bi-printer"></i></button>
-        `;
+                const buttonDiv = document.createElement('div');
+                const eyeButton = document.createElement('button');
+                eyeButton.className = 'btn btn-sm btn-outline-primary me-2';
+                eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
+                eyeButton.addEventListener('click', function () {
+                    // Redirect to stock card page with item details
+                    redirectToStockCard(item.item_id);
+                });
 
-        listItem.appendChild(itemDiv);
-        listItem.appendChild(buttonDiv);
+                buttonDiv.appendChild(eyeButton);
 
-        fileList.appendChild(listItem);
-    });
-}
+                listItem.appendChild(itemDiv);
+                listItem.appendChild(buttonDiv);
 
-function reloadPage() {
-    location.reload();
-}
-</script>
+                fileList.appendChild(listItem);
+            });
+        }
+
+        function redirectToStockCard(itemId) {
+            const baseUrl = 'stock_card_template.html'; // Replace with your actual file path
+            const urlParams = new URLSearchParams();
+            urlParams.append('itemId', itemId); // Append item ID or any other relevant data
+
+            window.location.href = `${baseUrl}?${urlParams.toString()}`;
+        }
+
+        function redirectToStockCard(itemId) {
+            const baseUrl = 's-template.php'; // Replace with your actual file path
+            const urlParams = new URLSearchParams();
+            urlParams.append('itemId', itemId); // Append item ID or any other relevant data
+
+            window.location.href = `${baseUrl}?${urlParams.toString()}`;
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const itemId = urlParams.get('itemId');
+
+            fetchItemDetails(itemId);
+        });
+
+        function fetchItemDetails(itemId) {
+        }
+    </script>
 
 
     <!--bin card modal-->
@@ -583,8 +637,9 @@ function reloadPage() {
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;"><strong>Stock
-                            Card</strong></h5>
+                    <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;">
+                        <strong>Stock Card</strong>
+                    </h5>
                 </div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center" style="margin-top: 5px;">
@@ -603,8 +658,10 @@ function reloadPage() {
                                     <i class="item_name"></i>example items
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-outline-primary me-2"><i class="bi bi-eye"></i></button>
-                                    <button class="btn btn-sm btn-outline-success"><i class="bi bi-printer"></i></button>
+                                    <button class="btn btn-sm btn-outline-primary me-2"><i
+                                            class="bi bi-eye"></i></button>
+                                    <button class="btn btn-sm btn-outline-success"><i
+                                            class="bi bi-printer"></i></button>
                                 </div>
                             </li>
                             <!-- Add more files as needed -->
@@ -697,26 +754,6 @@ function reloadPage() {
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const requestModal = document.getElementById('reqModal');
-            requestModal.addEventListener('shown.bs.modal', function () {
-                const dateInput = document.getElementById('requestdate');
-                const displayDateInput = document.getElementById('display_requestdate');
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = (now.getMonth() + 1).toString().padStart(2, '0');
-                const day = now.getDate().toString().padStart(2, '0');
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const seconds = now.getSeconds().toString().padStart(2, '0');
-                const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-                dateInput.value = formattedDate;
-                displayDateInput.value = formattedDate;
-            });
-        });
-    </script>
-
-    <script>
         document.getElementById('rModal').addEventListener('show.bs.modal', function () {
             // Close all modals except for the rModal
             var allModals = document.querySelectorAll('.modal');
@@ -744,6 +781,7 @@ function reloadPage() {
             });
         });
     </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const updateModalButtons = document.querySelectorAll('.btn-success');
