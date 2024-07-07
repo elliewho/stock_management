@@ -694,7 +694,7 @@
                 // Using SweetAlert for confirmation
                 Swal.fire({
                     title: "Are you sure?",
-                    text: "You won't be able to revert this!",
+                    text: "You won't be able to revert this! balaka kaw din",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, delete it!",
@@ -713,7 +713,7 @@
                                     $(this).closest('tr').remove();
                                     Swal.fire({
                                         title: "Deleted!",
-                                        text: "Your file has been deleted :< ",
+                                        text: "Your file has been deleted. :< ",
                                         icon: "success"
                                     });
                                 } else {
