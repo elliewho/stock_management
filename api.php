@@ -6,19 +6,18 @@ $username = "root";
 $password = "";
 $dbname = "stock";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    http_response_code(500);
+    echo json_encode(['error' => 'Database connection failed']);
+    exit();
 }
 
-// Get the POST data
 $data = json_decode(file_get_contents('php://input'), true);
 $searchTerm = isset($data['search']) ? $data['search'] : '';
 
-$sql = "SELECT item_name FROM request";
+$sql = "SELECT item_name FROM items";
 if (!empty($searchTerm)) {
     $searchTerm = $conn->real_escape_string($searchTerm);
     $sql .= " WHERE item_name LIKE '%$searchTerm%'";
@@ -28,9 +27,11 @@ $result = $conn->query($sql);
 
 $items = [];
 if ($result && $result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $items[] = ['item_name' => $row['item_name']];
     }
+} else {
+    http_response_code(404);
 }
 
 $conn->close();

@@ -16,12 +16,30 @@
             .print-button {
                 display: none !important;
             }
+
+            .table {
+                border: 1px solid black !important;
+            }
+
+            .table td,
+            .table th {
+                border: 1px solid black !important;
+            }
         }
 
         .table-bordered th,
         .table-bordered td {
-            border: 2px solid black !important;
-            padding: 0;
+            border: 1px solid black !important;
+        }
+
+        .table thead th {
+            border: 1px solid black;
+            padding: 3px;
+        }
+
+        .table tbody {
+            height: 1100px; 
+            overflow-y: auto;
         }
 
         .small-text {
@@ -32,7 +50,7 @@
             border-bottom: none;
             text-align: center;
             vertical-align: middle;
-            width: 22%;
+            width: 18%;
         }
 
         .sws {
@@ -101,7 +119,8 @@
 </head>
 
 <body>
-<button class="btn  print-button" style="float: right; margin-right: 60px; margin-top: 0px" onclick="window.print()"><span>Print</span></button>
+    <button class="btn  print-button" style="float: right; margin-right: 60px; margin-top: 0px"
+        onclick="window.print()"><span>Print</span></button>
     <div class="container mt-8">
         <table class="table table-bordered">
             <thead>
@@ -109,14 +128,17 @@
                     <th colspan="8"
                         style="text-align: center; font-size: 1.8rem; padding-top: 5px; padding-bottom: 0px">
                         PhilHealth<br>Bin Card<br>Your Partner in Health<br><br>
-                        <p style="text-align: left; font-size: 19px; margin-left: 10px" class="article">Article:</p>
+                        <p style="text-align: left; font-size: 19px; margin-left: 10px" class="article">Article:
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            dadwadwa</p>
                         <p style="text-align: left; font-size: 19px; margin-left: 10px" class="description">Description:
                         </p>
                     </th>
                 </tr>
                 <tr>
                     <th colspan="2" rowspan="2"
-                        style="border-bottom: none; text-align: center; vertical-align: middle; padding: 17px"
+                        style="border-bottom: none; text-align: center; vertical-align: middle; padding: 17px;" id=dri
                         class="dri">Date<br>Received/Issue</th>
                     <th colspan="2" rowspan="2" style="border-bottom: none; text-align: center; vertical-align: middle"
                         class="sws">SWS/RIS NO.<br>Transaction no.</th>
@@ -134,19 +156,266 @@
                     <th style="border-bottom: none; text-align: center; vertical-align: middle; padding: 6px">
                         Balance<br>on hand</th>
                 </tr>
-                <td style="text-align: center; vertical-align: middle; padding: 1px">1</td>
-                <td style="text-align: center; vertical-align: middle; padding: 1px">2</td>
-                <td style="text-align: center; vertical-align: middle; padding: 1px">3</td>
-                <td style="text-align: center; vertical-align: middle; padding: 1px">4</td>
-                <td style="text-align: center; vertical-align: middle; padding: 1px">5</td>
-                <td style="text-align: center; vertical-align: middle; padding: 1px">6</td>
-                <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 23px">7</td>
-                <td style="text-align: center; vertical-align: middle; padding: 1px">8</td>
+
             </thead>
-            <tbody id="itemTransactions">
-                <!-- Your table body content here -->
+            <tbody>
+            <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
+                </tr>
             </tbody>
         </table>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const itemName = urlParams.get('itemName');
+            const date = urlParams.get('request_date');
+            const balanceEnd = urlParams.get('balance_end');
+
+            document.getElementById('itemName').textContent = itemName;
+            document.getElementById('request_date').textContent = balanceEnd;
+            document.getElementById('balance_end').textContent = bqty;
+
+            // Add more fields as needed
+        });
+    </script>
 </body>
+
 </html>

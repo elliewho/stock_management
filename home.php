@@ -77,7 +77,7 @@
                                 Supply</strong></h4>
                         <ul class="pagination" style="margin-bottom: 20px">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#rModal" style="font-size: 10px; padding: 8px; border-radius: 100px">
+                                data-bs-target="#rModal" style="font-size: 10px; padding: 8px">
                                 <i class="bi bi-arrow-right-short"></i>
                             </button>
                         </ul>
@@ -161,7 +161,7 @@
                         <h4 style="text-align: center; flex-grow: 1; margin-bottom: 20px;"><strong>IT Supply</strong>
                         </h4>
                         <button type="button" class="btn btn-primary btn-md" data-bs-dismiss="modal" aria-label="Close"
-                            style="font-size: 10px; padding: 8px; border-radius: 100px">
+                            style="font-size: 10px; padding: 8px">
                             <i class="bi bi-arrow-left-short"></i>
                         </button>
                         </h4>
@@ -332,6 +332,46 @@
             </div>
         </div>
     </div>
+    <script>
+        // Define existingItems globally to store added items
+        const existingItems = {};
+
+        // Add event listener to the form submission
+        document.getElementById('addItemForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Fetch input values
+            const itemName = document.getElementById('itemName').value.trim();
+            const category = document.getElementById('category').value;
+
+            // Create a unique key for the item (based on name and category)
+            const itemKey = `${itemName}-${category}`;
+
+            // Check if item already exists
+            if (existingItems[itemKey]) {
+                // Show error message (you can customize this message as needed)
+                <script>
+                    Swal.fire({
+                        icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+});
+    </script>
+    return;
+    }
+
+    // Add item to existingItems object
+    existingItems[itemKey] = { name: itemName, category: category };
+
+    // Optionally reset form fields (if needed)
+    this.reset();
+
+    // Submit the form (if no duplicates)
+    this.submit();
+    });
+    </script>
+
 
     <!--sec modal-->
     <div class="modal fade" id="secModal" aria-hidden="true" aria-labelledby="secModalLabel" tabindex="-1">
@@ -412,19 +452,16 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Filter table rows based on input value
-        $(document).ready(function () {
-            $('#searchInput').on('keyup', function () {
-                var searchText = $(this).val().toLowerCase();
-                $('#tableBody tr').filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(searchText) > -1);
-                });
-            });
+                $(document).ready(function () {
+                    $('#searchInput').on('keyup', function () {
+                        var searchText = $(this).val().toLowerCase();
+                        $('#tableBody tr').filter(function () {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(searchText) > -1);
+                        });
+                    });
         });
-    </script>
-    <script>
-        function reloadPage() {
-            window.location.reload();
+                function reloadPage() {
+                    window.location.reload();
         }
     </script>
 
@@ -486,7 +523,8 @@
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="button" class="btn btn-warning" data-bs-dismiss="modal"
-                                onclick="reloadPage()"><i class="bi bi-box-arrow-left"></i></button><!--back-->
+                                onclick="reloadPage()">
+                                <i class="bi bi-box-arrow-left"></i></button><!--back-->
                             <button type="submit" class="btn btn-success">Add Request</button>
                         </div>
                     </form>
@@ -495,9 +533,9 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function () {
             const requestModal = document.getElementById('reqModal');
-            requestModal.addEventListener('shown.bs.modal', function () {
+                requestModal.addEventListener('shown.bs.modal', function () {
                 const dateInput = document.getElementById('requestdate');
                 const displayDateInput = document.getElementById('display_requestdate');
                 const now = new Date();
@@ -515,7 +553,7 @@
     </script>
 
 
-    <!-- stock card modal -->
+    <!--stock card modal-->
     <div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
         aria-labelledby="stockModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -548,31 +586,52 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchItems();
+                document.addEventListener('DOMContentLoaded', function () {
+                    fetchItems(); // Initial load
 
-            document.getElementById('searchButton').addEventListener('click', function () {
-                const searchTerm = document.getElementById('searchBar').value;
-                fetchItems(searchTerm);
-            });
-        });
+                const searchBar = document.getElementById('searchBar');
+                if (searchBar) {
+                    // Real-time search on input change
+                    searchBar.addEventListener('input', function () {
+                        const searchTerm = searchBar.value.trim(); // Get search term and trim whitespace
+                        fetchItems(searchTerm); // Call fetchItems with search term
+                    });
+        } else {
+                    console.error('searchBar element not found');
+        }
+    });
 
-        function fetchItems(searchTerm = '') {
-            fetch('api.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ search: searchTerm })
-            })
-                .then(response => response.json())
-                .then(data => populateItems(data))
-                .catch(error => console.error('Error fetching items:', error));
+                function fetchItems(searchTerm = '') {
+                    fetch('api.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ search: searchTerm })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.error) {
+                                throw new Error(data.error);
+                            }
+                            populateItems(data);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching items:', error);
+                            alert('Failed to fetch items. Please try again later.');
+                        });
         }
 
-        function populateItems(items) {
+                function populateItems(items) {
             const fileList = document.getElementById('fileList');
-            fileList.innerHTML = '';  // Clear the list
+                if (!fileList) return;
+
+                fileList.innerHTML = '';  // Clear the list
 
             items.forEach(item => {
                 const listItem = document.createElement('li');
@@ -586,49 +645,34 @@
                 eyeButton.className = 'btn btn-sm btn-outline-primary me-2';
                 eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
                 eyeButton.addEventListener('click', function () {
-                    // Redirect to stock card page with item details
-                    redirectToStockCard(item.item_id);
+                    redirectToStockCard(item);
                 });
 
                 buttonDiv.appendChild(eyeButton);
-
                 listItem.appendChild(itemDiv);
                 listItem.appendChild(buttonDiv);
-
                 fileList.appendChild(listItem);
             });
         }
 
-        function redirectToStockCard(itemId) {
-            const baseUrl = 'stock_card_template.html'; // Replace with your actual file path
-            const urlParams = new URLSearchParams();
-            urlParams.append('itemId', itemId); // Append item ID or any other relevant data
+                function redirectToStockCard(item) {
+            const baseUrl = 's-template.php';
+                const urlParams = new URLSearchParams();
+                urlParams.append('itemName', item.item_name);
+                urlParams.append('description', item.description); // Ensure 'description' is available in the item object
+                urlParams.append('date', item.date); // Ensure 'date' is available in the item object
+                urlParams.append('balanceEnd', item.balance_end); // Ensure 'balance_end' is available in the item object
 
-            window.location.href = `${baseUrl}?${urlParams.toString()}`;
-        }
-
-        function redirectToStockCard(itemId) {
-            const baseUrl = 's-template.php'; // Replace with your actual file path
-            const urlParams = new URLSearchParams();
-            urlParams.append('itemId', itemId); // Append item ID or any other relevant data
-
-            window.location.href = `${baseUrl}?${urlParams.toString()}`;
+                window.location.href = `${baseUrl}?${urlParams.toString()}`;
         }
 
         function reloadPage() {
             location.reload();
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const itemId = urlParams.get('itemId');
-
-            fetchItemDetails(itemId);
-        });
-
-        function fetchItemDetails(itemId) {
-        }
     </script>
+
+
+
 
 
     <!--bin card modal-->
@@ -687,89 +731,89 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('.delete-btn').click(function () {
-                var rowId = $(this).data('id');
+                $(document).ready(function () {
+                    $('.delete-btn').click(function () {
+                        var rowId = $(this).data('id');
 
-                // Using SweetAlert for confirmation
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this! balaka kaw din",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, delete it!",
-                    cancelButtonText: "No, cancel",
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // User confirmed deletion
-                        $.ajax({
-                            url: 'delete.php',
-                            type: 'POST',
-                            data: { id: rowId },
-                            success: function (response) {
-                                if (response == 'success') {
-                                    // Remove the table row if deletion was successful
-                                    $(this).closest('tr').remove();
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Your file has been deleted. :< ",
-                                        icon: "success"
-                                    });
-                                } else {
-                                    // Alert if deletion failed
-                                    Swal.fire({
-                                        title: "Error",
-                                        text: "Failed to delete item. Please try again.",
-                                        icon: "error"
-                                    });
-                                }
-                            }.bind(this),
-                            error: function () {
-                                // Alert if AJAX request fails
+                        // Using SweetAlert for confirmation
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this! balaka kaw din",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Yes, delete it!",
+                            cancelButtonText: "No, cancel",
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // User confirmed deletion
+                                $.ajax({
+                                    url: 'delete.php',
+                                    type: 'POST',
+                                    data: { id: rowId },
+                                    success: function (response) {
+                                        if (response == 'success') {
+                                            // Remove the table row if deletion was successful
+                                            $(this).closest('tr').remove();
+                                            Swal.fire({
+                                                title: "Deleted!",
+                                                text: "Your file has been deleted. :< ",
+                                                icon: "success"
+                                            });
+                                        } else {
+                                            // Alert if deletion failed
+                                            Swal.fire({
+                                                title: "Error",
+                                                text: "Failed to delete item. Please try again.",
+                                                icon: "error"
+                                            });
+                                        }
+                                    }.bind(this),
+                                    error: function () {
+                                        // Alert if AJAX request fails
+                                        Swal.fire({
+                                            title: "Error",
+                                            text: "Error occurred while deleting item.",
+                                            icon: "error"
+                                        });
+                                    }
+                                });
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                // User clicked cancel, show a message
                                 Swal.fire({
-                                    title: "Error",
-                                    text: "Error occurred while deleting item.",
+                                    title: "Cancelled",
+                                    text: "Your file is safe hahahaha ;P",
                                     icon: "error"
                                 });
                             }
                         });
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        // User clicked cancel, show a message
-                        Swal.fire({
-                            title: "Cancelled",
-                            text: "Your file is safe hahahaha ;P",
-                            icon: "error"
-                        });
-                    }
-                });
-            });
+                    });
         });
     </script>
 
     <script>
-        function reloadPage() {
-            location.reload();
+                function reloadPage() {
+                    location.reload();
         }
     </script>
 
     <script>
-        document.getElementById('rModal').addEventListener('show.bs.modal', function () {
+                document.getElementById('rModal').addEventListener('show.bs.modal', function () {
             // Close all modals except for the rModal
             var allModals = document.querySelectorAll('.modal');
-            allModals.forEach(function (modal) {
+                allModals.forEach(function (modal) {
                 if (modal.id !== 'rModal' && modal.classList.contains('show')) {
                     var modalInstance = bootstrap.Modal.getInstance(modal);
-                    modalInstance.hide();
+                modalInstance.hide();
                 }
             });
         });
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function () {
             const backButton = document.querySelector('.back-to-inventory');
-            backButton.addEventListener('click', function () {
+                backButton.addEventListener('click', function () {
                 const rModal = document.getElementById('rModal');
                 const invModal = document.getElementById('invModal');
                 // Close the rModal
@@ -783,15 +827,15 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function () {
             const updateModalButtons = document.querySelectorAll('.btn-success');
 
             updateModalButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const rModal = document.getElementById('rModal');
-                    const rModalInstance = bootstrap.Modal.getInstance(rModal);
-                    rModalInstance.hide();
-                });
+                    button.addEventListener('click', function () {
+                        const rModal = document.getElementById('rModal');
+                        const rModalInstance = bootstrap.Modal.getInstance(rModal);
+                        rModalInstance.hide();
+                    });
             });
         });
     </script>
