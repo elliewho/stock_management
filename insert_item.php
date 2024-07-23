@@ -8,33 +8,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST['description'];
     $category = $_POST['category'];
 
-    // Check if the form has been submitted before processing it
-    if (!isset($_SESSION['form_submitted'])) {
-        // Set a session variable to mark the form as submitted
-        $_SESSION['form_submitted'] = true;
+    // Check if the item already exists
+    $check_stmt = $conn->prepare("SELECT item_name FROM items WHERE item_name = ?");
+    $check_stmt->bind_param("s", $item_name);
+    $check_stmt->execute();
+    $check_stmt->store_result();
 
-        // Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO items (item_name, quantity, description, category) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("siss", $item_name, $quantity, $description, $category);
+    if ($check_stmt->num_rows > 0) {
+        // Redirect back with a message or handle the duplicate case
+        header("Location: error.php?msg=" . urlencode("Item name already exists"));
+        exit;
+    } else {
+        // Proceed with insertion
+        $insert_stmt = $conn->prepare("INSERT INTO items (item_name, quantity, description, category) VALUES (?, ?, ?, ?)");
+        $insert_stmt->bind_param("siss", $item_name, $quantity, $description, $category);
 
-        // Execute the statement
-        if ($stmt->execute()) {
-            // Redirect to a success page
+        if ($insert_stmt->execute()) {
+            // Redirect to success page
             header("Location: success.php");
             exit;
         } else {
-            // Redirect to an error page
-            header("Location: error.php?msg=" . urlencode($stmt->error));
+            // Redirect to error page if insertion fails
+            header("Location: error.php?msg=" . urlencode($insert_stmt->error));
             exit;
         }
-
-        // Close the statement and connection
-        $stmt->close();
-        $conn->close();
-    } else {
-        // Redirect to prevent duplicate form submission
-        header("Location: home.php");
-        exit;
     }
+
+    // Close statements and connection
+    $check_stmt->close();
+    $insert_stmt->close();
+    $conn->close();
 }
 ?>

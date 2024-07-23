@@ -2,6 +2,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ensure all necessary fields are present and sanitize input
     $item_name = htmlspecialchars($_POST['item_name']);
+    $description = htmlspecialchars($_POST['description']); // Retrieve the description
     $quantity = (int)$_POST['quantity'];
     $destination = htmlspecialchars($_POST['destination']);
     $request_date = htmlspecialchars($_POST['request_date']); // Assuming you set this in JavaScript (though disabled)
@@ -28,16 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($success_update) {
             // Insert into request table
-            $stmt_insert = $conn->prepare("INSERT INTO request (item_name, quantity, destination, request_date) VALUES (?, ?, ?, ?)");
-            $stmt_insert->bind_param("siss", $item_name, $quantity, $destination, $request_date);
+            $stmt_insert = $conn->prepare("INSERT INTO request (item_name, description, quantity, destination, request_date) VALUES (?, ?, ?, ?, ?)");
+            $stmt_insert->bind_param("ssiss", $item_name, $description, $quantity, $destination, $request_date);
             $success_insert = $stmt_insert->execute();
             $stmt_insert->close();
 
             if ($success_insert) {
-                // Insert or update stock card (assuming you have a stock_card table)
-                // Adjust this part based on your actual stock_card table structure
 
-                // Commit transaction and redirect on success
                 $conn->commit();
                 $conn->close();
                 header("Location: success.php");

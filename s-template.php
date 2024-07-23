@@ -162,6 +162,12 @@
 <body>
     <button class="btn print-button" style="float: right; margin-right: 60px; margin-top: 0px"
         onclick="window.print()"><span>Print</span></button>
+        <button class="btn blue-button" style="float: right; margin-right: 10px; margin-top: 0px"
+        onclick="window.history.back()"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
+            </svg></span></button>
     <div class="container mt-4">
         <div class="row" style="margin-bottom: -15px;">
             <div class="col-6 small-text">
@@ -462,16 +468,22 @@
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
             const itemName = urlParams.get('itemName');
-            const date = urlParams.get('request_date');
-            const balanceEnd = urlParams.get('balance_end');
 
+            // Set item name
             document.getElementById('itemName').textContent = itemName;
-            document.getElementById('request_date').textContent = balanceEnd;
-            document.getElementById('balance_end').textContent = bqty;
 
-            // Add more fields as needed
+            // Fetch description via AJAX or from PHP script
+            // Example using PHP and assuming you have a script to get description
+            fetch('get_description.php?itemName=' + itemName)
+                .then(response => response.text())
+                .then(description => {
+                    document.getElementById('description').textContent = description;
+                })
+                .catch(error => {
+                    console.error('dwauduaw:', error);
+                });
         });
-    </script>   
+    </script>  
 </body>
 
 </html>
