@@ -1,11 +1,10 @@
 <?php
-include 'db_connect.php'; // Include your database connection file
+include 'db_connect.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $itemId = $_POST['itemId'];
     $received = $_POST['received'];
 
-    // Calculate the new balance
     $sql = "SELECT quantity, utilization FROM items WHERE id = $itemId";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -14,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $utilization = $row['utilization'];
         $balanceEnd = $balanceStart + $received - $utilization;
 
-        // Update the record in the database
         $updateSql = "UPDATE items SET receivedQuantity = $received, balance_end = $balanceEnd WHERE id = $itemId";
         if ($conn->query($updateSql) === TRUE) {
             echo "Record updated successfully";
@@ -28,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 
-// Redirect back to the inventory page
 header("Location: home.php");
 exit();
 ?>

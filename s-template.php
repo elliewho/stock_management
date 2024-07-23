@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Card</title>
-    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="https://www.parfait.com.ph/images/product-icon/philhealth-icon.png">
 <style>
@@ -466,23 +465,31 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const itemName = urlParams.get('itemName');
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemName = urlParams.get('itemName');
 
-            // Set item name
-            document.getElementById('itemName').textContent = itemName;
+    document.getElementById('itemName').textContent = itemName;
 
-            // Fetch description via AJAX or from PHP script
-            // Example using PHP and assuming you have a script to get description
-            fetch('get_description.php?itemName=' + itemName)
-                .then(response => response.text())
-                .then(description => {
-                    document.getElementById('description').textContent = description;
-                })
-                .catch(error => {
-                    console.error('dwauduaw:', error);
-                });
+    fetch('get_description.php?itemName=' + encodeURIComponent(itemName))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json(); 
+        })
+        .then(data => {
+            if (data && data.description) {
+                document.getElementById('description').textContent = data.description;
+            } else {
+                document.getElementById('description').textContent = '';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching description:', error);
+            document.getElementById('description').textContent = 'Error loading description';
         });
+});
+
     </script>  
 </body>
 

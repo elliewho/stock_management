@@ -1,12 +1,11 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['item_name'])) {
-    $item_name = htmlspecialchars($_POST['item_name']);
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['itemName'])) {
+    $itemName = htmlspecialchars($_GET['itemName']);
 
-    include 'db_connect.php'; // Ensure you include your database connection script
+    include 'db_connect.php';
 
-    // Query the description based on item_name
     $stmt = $conn->prepare("SELECT description FROM items WHERE item_name = ?");
-    $stmt->bind_param("s", $item_name);
+    $stmt->bind_param("s", $itemName);
     $stmt->execute();
     $stmt->bind_result($description);
     $stmt->fetch();
@@ -14,10 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['item_name'])) {
 
     $conn->close();
 
-    // Return the description in JSON format
-    echo json_encode(['description' => $description]);
+    echo json_encode(['description' => $description ? $description : '']);
 } else {
-    // Return error if the request method is not POST or item_name is not set
-    echo json_encode(['description' => null]);
+    echo json_encode(['description' => 'Error: itemName not provided']);
 }
 ?>

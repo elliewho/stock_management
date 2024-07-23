@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 $data = json_decode(file_get_contents('php://input'), true);
 $searchTerm = isset($data['search']) ? $data['search'] : '';
 
-$sql = "SELECT item_name FROM items";
+$sql = "SELECT * FROM items";
 if (!empty($searchTerm)) {
     $searchTerm = $conn->real_escape_string($searchTerm);
     $sql .= " WHERE item_name LIKE '%$searchTerm%'";

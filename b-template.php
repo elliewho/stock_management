@@ -413,7 +413,6 @@
             document.getElementById('request_date').textContent = balanceEnd;
             document.getElementById('balance_end').textContent = bqty;
 
-            // Add more fields as needed
         });
     </script>
 </body>
