@@ -86,10 +86,10 @@
                         <thead>
                             <tr>
                                 <th rowspan="2" style="text-align: center" name="item_name">Item Name</th>
-                                <th rowspan="2" style="text-align: center" name="balance_start">Balance as of</th>
+                                <th rowspan="2" style="text-align: center" name="balance_start">Balance Start</th>
                                 <th rowspan="2" style="text-align: center" name="received">No. of Supplies Received</th>
                                 <th rowspan="2" style="text-align: center" name="utilization">Utilization</th>
-                                <th rowspan="2" style="text-align: center" name="balance_end">Balance as of</th>
+                                <th rowspan="2" style="text-align: center" name="balance_end">Balance End</th>
                                 <th rowspan="2" style="text-align: center" name="actions">Actions</th>
                             </tr>
                         </thead>
@@ -170,10 +170,10 @@
                         <thead>
                             <tr>
                                 <th rowspan="2" style="text-align: center" name="item_name">Item Name</th>
-                                <th rowspan="2" style="text-align: center" name="balance_start">Balance as of</th>
+                                <th rowspan="2" style="text-align: center" name="balance_start">Balance Start</th>
                                 <th rowspan="2" style="text-align: center" name="received">No. of Supplies Received</th>
                                 <th rowspan="2" style="text-align: center" name="utilization">Utilization</th>
-                                <th rowspan="2" style="text-align: center" name="balance_end">Balance as of</th>
+                                <th rowspan="2" style="text-align: center" name="balance_end">Balance End</th>
                                 <th rowspan="2" style="text-align: center" name="actions">Actions</th>
                             </tr>
                         </thead>
@@ -550,166 +550,235 @@
 
 
     <!--stock card modal-->
-    <div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
-        aria-labelledby="stockModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header sticky-top bg-light">
-                    <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;"><strong>Stock
-                            Card</strong></h5>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center" style="margin-top: 5px;">
-                        <div class="input-group" style="width: 70%;">
-                            <input type="text" class="form-control" id="searchBar" placeholder="Search files..."
-                                maxlength="30">
-                            <button class="btn btn-primary" type="button" id="searchButton"><i
-                                    class="bi bi-search"></i></button>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <!-- File list -->
-                        <ul class="list-group mt-3" id="fileList">
-                            <!-- Dynamic items will be appended here -->
-                        </ul>
+<div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
+    aria-labelledby="stockModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;">
+                    <strong>Stock Card</strong></h5>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center" style="margin-top: 5px;">
+                    <div class="input-group" style="width: 70%;">
+                        <input type="text" class="form-control" id="stockSearchBar" placeholder="Search items..."
+                            maxlength="30">
+                        <button class="btn btn-primary" type="button" id="stockSearchButton"><i
+                                class="bi bi-search"></i></button>
                     </div>
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
-                            class="bi bi-box-arrow-left"></i></button>
+                <div class="mt-4">
+                    <ul class="list-group mt-3" id="fileList">
+                    </ul>
                 </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
+                        class="bi bi-box-arrow-left"></i></button>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchItems(); // Initial load
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchItems();
 
-            const searchBar = document.getElementById('searchBar');
-            if (searchBar) {
-                // Real-time search on input change
-                searchBar.addEventListener('input', function () {
-                    const searchTerm = searchBar.value.trim(); // Get search term and trim whitespace
-                    fetchItems(searchTerm); // Call fetchItems with search term
-                });
-            } else {
-                console.error('searchBar element not found');
-            }
-        });
-
-        function fetchItems(searchTerm = '') {
-            fetch('api.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ search: searchTerm })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
-                    populateItems(data);
-                })
-                .catch(error => {
-                    console.error('Error fetching items:', error);
-                    alert('Failed to fetch items. Please try again later.');
-                });
-        }
-
-        function populateItems(items) {
-            const fileList = document.getElementById('fileList');
-            if (!fileList) return;
-
-            fileList.innerHTML = '';  // Clear the list
-
-            items.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-
-                const itemDiv = document.createElement('div');
-                itemDiv.textContent = item.item_name;
-
-                const buttonDiv = document.createElement('div');
-                const eyeButton = document.createElement('button');
-                eyeButton.className = 'btn btn-sm btn-outline-primary me-2';
-                eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
-                eyeButton.addEventListener('click', function () {
-                    redirectToStockCard(item);
-                });
-
-                buttonDiv.appendChild(eyeButton);
-                listItem.appendChild(itemDiv);
-                listItem.appendChild(buttonDiv);
-                fileList.appendChild(listItem);
+        const stockSearchBar = document.getElementById('stockSearchBar');
+        if (stockSearchBar) {
+            stockSearchBar.addEventListener('input', function () {
+                const searchTerm = stockSearchBar.value.trim();
+                fetchItems(searchTerm);
             });
+        } else {
+            console.error('stockSearchBar element not found');
         }
+    });
 
-        function redirectToStockCard(item) {
-            const baseUrl = 's-template.php';
-            const urlParams = new URLSearchParams();
-            urlParams.append('itemName', item.item_name);
-            urlParams.append('description', item.description);
+    function fetchItems(searchTerm = '') {
+        fetch('api.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ search: searchTerm })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                populateItems(data);
+            })
+            .catch(error => {
+                console.error('Error fetching items:', error);
+                alert('Failed to fetch items. Please try again later.');
+            });
+    }
 
-            window.location.href = `${baseUrl}?${urlParams.toString()}`;
-        }
+    function populateItems(items) {
+        const fileList = document.getElementById('fileList');
+        if (!fileList) return;
 
-        function reloadPage() {
-            location.reload();
-        }
-    </script>
+        fileList.innerHTML = '';
+        items.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+            const itemDiv = document.createElement('div');
+            const italicizedName = document.createElement('i'); // Create <i> element
+            italicizedName.textContent = item.item_name; // Set item name as text content
+            itemDiv.appendChild(italicizedName); // Append <i> to the div
+
+            const buttonDiv = document.createElement('div');
+            const eyeButton = document.createElement('button');
+            eyeButton.className = 'btn btn-sm btn-outline-primary me-2';
+            eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
+            eyeButton.addEventListener('click', function () {
+                redirectToStockCard(item);
+            });
+
+            buttonDiv.appendChild(eyeButton);
+            listItem.appendChild(itemDiv);
+            listItem.appendChild(buttonDiv);
+            fileList.appendChild(listItem);
+        });
+    }
+
+    function redirectToStockCard(item) {
+        const baseUrl = 's-template.php';
+        const urlParams = new URLSearchParams();
+        urlParams.append('itemName', item.item_name);
+        urlParams.append('description', item.description);
+
+        window.location.href = `${baseUrl}?${urlParams.toString()}`;
+    }
+
+    function reloadPage() {
+        location.reload();
+    }
+</script>
 
 
-    <!--bin card modal-->
-    <div class="modal fade animate__animated animate__fadeInLeft" id="binModal" tabindex="-1" aria-labelledby="binModal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;">
-                        <strong>Stock Card</strong>
-                    </h5>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center" style="margin-top: 5px;">
-                        <div class="input-group" style="width: 70%;">
-                            <input type="text" class="form-control" id="searchBar" placeholder="Search files..."
-                                maxlength="30">
-                            <button class="btn btn-primary" type="button" id="searchButton"><i
-                                    class="bi bi-search"></i></button>
-                        </div>
+
+    <!-- bin card modal -->
+<div class="modal fade animate__animated animate__fadeInLeft" id="binModal" tabindex="-1"
+    aria-labelledby="binModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="binModalLabel" style="flex-grow: 1; text-align: center;">
+                    <strong>Bin Card</strong></h5>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center" style="margin-top: 5px;">
+                    <div class="input-group" style="width: 70%;">
+                        <input type="text" class="form-control" id="binSearchBar" placeholder="Search items..."
+                            maxlength="30">
+                        <button class="btn btn-primary" type="button" id="binSearchButton"><i
+                                class="bi bi-search"></i></button>
                     </div>
-                    <div class="mt-4">
-                        <!-- File list -->
-                        <ul class="list-group mt-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <i class="item_name"></i>example items
-                                </div>
-                                <div>
-                                    <button class="btn btn-sm btn-outline-primary me-2"><i
-                                            class="bi bi-eye"></i></button>
-                                    <button class="btn btn-sm btn-outline-success"><i
-                                            class="bi bi-printer"></i></button>
-                                </div>
-                            </li>
-                            <!-- Add more files as needed -->
-                        </ul>
-                    </div>
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
-                            class="bi bi-box-arrow-left"></i></button>
+                <div class="mt-4">
+                    <ul class="list-group mt-3" id="binItemList">
+                    </ul>
                 </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
+                        class="bi bi-box-arrow-left"></i></button>
             </div>
         </div>
     </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchBinItems();
+
+        const binSearchBar = document.getElementById('binSearchBar');
+        if (binSearchBar) {
+            binSearchBar.addEventListener('input', function () {
+                const searchTerm = binSearchBar.value.trim();
+                fetchBinItems(searchTerm);
+            });
+        } else {
+            console.error('binSearchBar element not found');
+        }
+    });
+
+    function fetchBinItems(searchTerm = '') {
+        fetch('api.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ search: searchTerm })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                populateBinItems(data);
+            })
+            .catch(error => {
+                console.error('Error fetching items:', error);
+                alert('Failed to fetch items. Please try again later.');
+            });
+    }
+
+    function populateBinItems(items) {
+        const binItemList = document.getElementById('binItemList');
+        if (!binItemList) return;
+
+        binItemList.innerHTML = '';
+        items.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+            const itemNameDiv = document.createElement('div');
+            itemNameDiv.innerHTML = `<i>${item.item_name}</i>`;
+
+            const buttonDiv = document.createElement('div');
+            const eyeButton = document.createElement('button');
+            eyeButton.className = 'btn btn-sm btn-outline-primary';
+            eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
+            eyeButton.addEventListener('click', function () {
+                redirectToBinTemplate(item);
+            });
+
+            buttonDiv.appendChild(eyeButton);
+            listItem.appendChild(itemNameDiv);
+            listItem.appendChild(buttonDiv);
+            binItemList.appendChild(listItem);
+        });
+    }
+
+    function redirectToBinTemplate(item) {
+        const baseUrl = 'b-template.php';
+        const urlParams = new URLSearchParams();
+        urlParams.append('itemName', item.item_name);
+        urlParams.append('description', item.description);
+
+        window.location.href = `${baseUrl}?${urlParams.toString()}`;
+    }
+
+    function reloadPage() {
+        location.reload();
+    }
+</script>
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
