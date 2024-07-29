@@ -13,7 +13,7 @@
         }
 
         @media print {
-            .print-button {
+            .print-button, .blue-button {
                 display: none !important;
             }
 

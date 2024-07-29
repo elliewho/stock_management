@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $updateSql = "UPDATE items SET receivedQuantity = $received, balance_end = $balanceEnd WHERE id = $itemId";
         if ($conn->query($updateSql) === TRUE) {
-            echo "Record updated successfully";
+            echo 'success';
         } else {
             echo "Error updating record: " . $conn->error;
         }
