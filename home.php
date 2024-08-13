@@ -94,35 +94,47 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            if ($result->num_rows > 0) {
-                                $result->data_seek(0);
-                                while ($row = $result->fetch_assoc()) {
-                                    if ($row["category"] == "Office Supply") {
-                                        $total_received_quantity = $row["receivedQuantity"];
+                        <?php
+                        if ($result->num_rows > 0) {
+                            $result->data_seek(0);
 
-                                        echo "<tr>";
-                                        echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
-                                        echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
-                                        echo "<td style='text-align: center'>" . $total_received_quantity . "</td>";
-                                        echo "<td style='text-align: center'>" . $row["utilization"] . "</td>"; // Utilization (to be added)
-                                        echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>";
-                                        echo "<td style='text-align: center'>
-                                        <button class='btn btn-success btn-sm' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='setUpdateModalData(" . json_encode($row) . ")'>
-                                            <i class='bi bi-plus-slash-minus'></i>
-                                        </button>
-                                        <button class='btn btn-danger btn-sm delete-btn' data-id='" . $row["id"] . "'>
-                                            <i class='bi bi-backspace'></i>
-                                        </button>
-                                    </td>";
-                                        echo "</tr>";
-                                    }
+                            // Store rows in an array to sort them
+                            $rows = [];
+                            while ($row = $result->fetch_assoc()) {
+                                if ($row["category"] == "Office Supply") {
+                                    $rows[] = $row;
                                 }
-                            } else {
-                                echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
                             }
-                            $conn->close();
-                            ?>
+
+                            // Sort rows alphabetically by item_name
+                            usort($rows, function ($a, $b) {
+                                return strcmp($a["item_name"], $b["item_name"]);
+                            });
+
+                            // Display sorted rows
+                            foreach ($rows as $row) {
+                                $total_received_quantity = $row["receivedQuantity"];
+                                echo "<tr>";
+                                echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
+                                echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
+                                echo "<td style='text-align: center'>" . $total_received_quantity . "</td>";
+                                echo "<td style='text-align: center'>" . $row["utilization"] . "</td>";
+                                echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>";
+                                echo "<td style='text-align: center'>
+                                    <button class='btn btn-success btn-sm' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='setUpdateModalData(" . json_encode($row) . ")'>
+                                        <i class='bi bi-plus-slash-minus'></i>
+                                    </button>
+                                    <button class='btn btn-danger btn-sm delete-btn' data-id='" . $row["id"] . "'>
+                                        <i class='bi bi-backspace'></i>
+                                    </button>
+                                </td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
+                        }
+                        $conn->close();
+                        ?>
                         </tbody>
                     </table>
                 </div>
@@ -144,7 +156,6 @@
         }
 
         function submitUpdateForm() {
-            // Add your form submission logic here
             document.getElementById('updateForm').submit();
         }
     </script>
@@ -178,35 +189,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            if ($result->num_rows > 0) {
-                                $result->data_seek(0);
-                                while ($row = $result->fetch_assoc()) {
-                                    if ($row["category"] == "IT Supply") {
-                                        $total_received_quantity = $row["receivedQuantity"];
+                        <?php
+                        if ($result->num_rows > 0) {
+                            $result->data_seek(0);
 
-                                        echo "<tr>";
-                                        echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
-                                        echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
-                                        echo "<td style='text-align: center'>" . $row["receivedQuantity"] . "</td>";
-                                        echo "<td style='text-align: center'>" . $row["utilization"] . "</td>"; // Utilization (to be added)
-                                        echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>"; // Balance as of
-                                        echo "<td style='text-align: center'>
-                                            <button class='btn btn-success btn-sm' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='setUpdateModalData(" . json_encode($row) . ")'>
-                                                <i class='bi bi-plus-slash-minus'></i>
-                                            </button>
-                                            <button class='btn btn-danger btn-sm delete-btn' data-id='" . $row["id"] . "'>
-                                                <i class='bi bi-backspace'></i>
-                                            </button>
-                                        </td>";
-                                        echo "</tr>";
-                                    }
+                            // Store rows in an array to sort them
+                            $rows = [];
+                            while ($row = $result->fetch_assoc()) {
+                                if ($row["category"] == "IT Supply") {
+                                    $rows[] = $row;
                                 }
-                            } else {
-                                echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
                             }
 
-                            ?>
+                            // Sort rows alphabetically by item_name
+                            usort($rows, function ($a, $b) {
+                                return strcmp($a["item_name"], $b["item_name"]);
+                            });
+
+                            // Display sorted rows
+                            foreach ($rows as $row) {
+                                $total_received_quantity = $row["receivedQuantity"];
+                                echo "<tr>";
+                                echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
+                                echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
+                                echo "<td style='text-align: center'>" . $total_received_quantity . "</td>";
+                                echo "<td style='text-align: center'>" . $row["utilization"] . "</td>";
+                                echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>";
+                                echo "<td style='text-align: center'>
+                                    <button class='btn btn-success btn-sm' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='setUpdateModalData(" . json_encode($row) . ")'>
+                                        <i class='bi bi-plus-slash-minus'></i>
+                                    </button>
+                                    <button class='btn btn-danger btn-sm delete-btn' data-id='" . $row["id"] . "'>
+                                        <i class='bi bi-backspace'></i>
+                                    </button>
+                                </td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
+                        }
+                        ?>
                         </tbody>
                     </table>
                 </div>
@@ -270,8 +292,8 @@
         function submitUpdateForm() {
             // Display SweetAlert confirmation
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'Your are updating this item.',
+                text: "You can always update this",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -550,232 +572,232 @@
 
 
     <!--stock card modal-->
-<div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
-    aria-labelledby="stockModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;">
-                    <strong>Stock Card</strong></h5>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex justify-content-center" style="margin-top: 5px;">
-                    <div class="input-group" style="width: 70%;">
-                        <input type="text" class="form-control" id="stockSearchBar" placeholder="Search items..."
-                            maxlength="30">
-                        <button class="btn btn-primary" type="button" id="stockSearchButton"><i
-                                class="bi bi-search"></i></button>
+    <div class="modal fade animate__animated animate__fadeInLeft" id="stockModal" tabindex="-1"
+        aria-labelledby="stockModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal3Label" style="flex-grow: 1; text-align: center;">
+                        <strong>Stock Card</strong>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center" style="margin-top: 5px;">
+                        <div class="input-group" style="width: 70%;">
+                            <input type="text" class="form-control" id="stockSearchBar" placeholder="Search items..."
+                                maxlength="30">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <ul class="list-group mt-3" id="fileList">
+                        </ul>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <ul class="list-group mt-3" id="fileList">
-                    </ul>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
+                            class="bi bi-box-arrow-left"></i></button>
                 </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
-                        class="bi bi-box-arrow-left"></i></button>
             </div>
         </div>
     </div>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        fetchItems();
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchItems();
 
-        const stockSearchBar = document.getElementById('stockSearchBar');
-        if (stockSearchBar) {
-            stockSearchBar.addEventListener('input', function () {
-                const searchTerm = stockSearchBar.value.trim();
-                fetchItems(searchTerm);
-            });
-        } else {
-            console.error('stockSearchBar element not found');
-        }
-    });
-
-    function fetchItems(searchTerm = '') {
-        fetch('api.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ search: searchTerm })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                populateItems(data);
-            })
-            .catch(error => {
-                console.error('Error fetching items:', error);
-                alert('Failed to fetch items. Please try again later.');
-            });
-    }
-
-    function populateItems(items) {
-        const fileList = document.getElementById('fileList');
-        if (!fileList) return;
-
-        fileList.innerHTML = '';
-        items.forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-
-            const itemDiv = document.createElement('div');
-            const italicizedName = document.createElement('i'); // Create <i> element
-            italicizedName.textContent = item.item_name; // Set item name as text content
-            itemDiv.appendChild(italicizedName); // Append <i> to the div
-
-            const buttonDiv = document.createElement('div');
-            const eyeButton = document.createElement('button');
-            eyeButton.className = 'btn btn-sm btn-outline-primary me-2';
-            eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
-            eyeButton.addEventListener('click', function () {
-                redirectToStockCard(item);
-            });
-
-            buttonDiv.appendChild(eyeButton);
-            listItem.appendChild(itemDiv);
-            listItem.appendChild(buttonDiv);
-            fileList.appendChild(listItem);
+            const stockSearchBar = document.getElementById('stockSearchBar');
+            if (stockSearchBar) {
+                stockSearchBar.addEventListener('input', function () {
+                    const searchTerm = stockSearchBar.value.trim();
+                    fetchItems(searchTerm);
+                });
+            } else {
+                console.error('stockSearchBar element not found');
+            }
         });
-    }
 
-    function redirectToStockCard(item) {
-        const baseUrl = 's-template.php';
-        const urlParams = new URLSearchParams();
-        urlParams.append('itemName', item.item_name);
-        urlParams.append('description', item.description);
+        function fetchItems(searchTerm = '') {
+            fetch('api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ search: searchTerm })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    populateItems(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching items:', error);
+                    alert('Failed to fetch items. Please try again later.');
+                });
+        }
 
-        window.location.href = `${baseUrl}?${urlParams.toString()}`;
-    }
+        function populateItems(items) {
+            const fileList = document.getElementById('fileList');
+            if (!fileList) return;
 
-    function reloadPage() {
-        location.reload();
-    }
-</script>
+            fileList.innerHTML = '';
+            items.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+                const itemDiv = document.createElement('div');
+                const italicizedName = document.createElement('i'); // Create <i> element
+                italicizedName.textContent = item.item_name; // Set item name as text content
+                itemDiv.appendChild(italicizedName); // Append <i> to the div
+
+                const buttonDiv = document.createElement('div');
+                const eyeButton = document.createElement('button');
+                eyeButton.className = 'btn btn-sm btn-outline-primary me-2';
+                eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
+                eyeButton.addEventListener('click', function () {
+                    redirectToStockCard(item);
+                });
+
+                buttonDiv.appendChild(eyeButton);
+                listItem.appendChild(itemDiv);
+                listItem.appendChild(buttonDiv);
+                fileList.appendChild(listItem);
+            });
+        }
+
+        function redirectToStockCard(item) {
+            const baseUrl = 's-template.php';
+            const urlParams = new URLSearchParams();
+            urlParams.append('itemName', item.item_name);
+            urlParams.append('description', item.description);
+
+            window.location.href = `${baseUrl}?${urlParams.toString()}`;
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+    </script>
 
 
 
     <!-- bin card modal -->
-<div class="modal fade animate__animated animate__fadeInLeft" id="binModal" tabindex="-1"
-    aria-labelledby="binModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="binModalLabel" style="flex-grow: 1; text-align: center;">
-                    <strong>Bin Card</strong></h5>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex justify-content-center" style="margin-top: 5px;">
-                    <div class="input-group" style="width: 70%;">
-                        <input type="text" class="form-control" id="binSearchBar" placeholder="Search items..."
-                            maxlength="30">
-                        <button class="btn btn-primary" type="button" id="binSearchButton"><i
-                                class="bi bi-search"></i></button>
+    <div class="modal fade animate__animated animate__fadeInLeft" id="binModal" tabindex="-1"
+        aria-labelledby="binModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="binModalLabel" style="flex-grow: 1; text-align: center;">
+                        <strong>Bin Card</strong>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center" style="margin-top: 5px;">
+                        <div class="input-group" style="width: 70%;">
+                            <input type="text" class="form-control" id="binSearchBar" placeholder="Search items..."
+                                maxlength="30">
+                            <button class="btn btn-primary" type="button" id="binSearchButton"><i
+                                    class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <ul class="list-group mt-3" id="binItemList">
+                        </ul>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <ul class="list-group mt-3" id="binItemList">
-                    </ul>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
+                            class="bi bi-box-arrow-left"></i></button>
                 </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="reloadPage()"><i
-                        class="bi bi-box-arrow-left"></i></button>
             </div>
         </div>
     </div>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        fetchBinItems();
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchBinItems();
 
-        const binSearchBar = document.getElementById('binSearchBar');
-        if (binSearchBar) {
-            binSearchBar.addEventListener('input', function () {
-                const searchTerm = binSearchBar.value.trim();
-                fetchBinItems(searchTerm);
-            });
-        } else {
-            console.error('binSearchBar element not found');
-        }
-    });
-
-    function fetchBinItems(searchTerm = '') {
-        fetch('api.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ search: searchTerm })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                populateBinItems(data);
-            })
-            .catch(error => {
-                console.error('Error fetching items:', error);
-                alert('Failed to fetch items. Please try again later.');
-            });
-    }
-
-    function populateBinItems(items) {
-        const binItemList = document.getElementById('binItemList');
-        if (!binItemList) return;
-
-        binItemList.innerHTML = '';
-        items.forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-
-            const itemNameDiv = document.createElement('div');
-            itemNameDiv.innerHTML = `<i>${item.item_name}</i>`;
-
-            const buttonDiv = document.createElement('div');
-            const eyeButton = document.createElement('button');
-            eyeButton.className = 'btn btn-sm btn-outline-primary';
-            eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
-            eyeButton.addEventListener('click', function () {
-                redirectToBinTemplate(item);
-            });
-
-            buttonDiv.appendChild(eyeButton);
-            listItem.appendChild(itemNameDiv);
-            listItem.appendChild(buttonDiv);
-            binItemList.appendChild(listItem);
+            const binSearchBar = document.getElementById('binSearchBar');
+            if (binSearchBar) {
+                binSearchBar.addEventListener('input', function () {
+                    const searchTerm = binSearchBar.value.trim();
+                    fetchBinItems(searchTerm);
+                });
+            } else {
+                console.error('binSearchBar element not found');
+            }
         });
-    }
 
-    function redirectToBinTemplate(item) {
-        const baseUrl = 'b-template.php';
-        const urlParams = new URLSearchParams();
-        urlParams.append('itemName', item.item_name);
-        urlParams.append('description', item.description);
+        function fetchBinItems(searchTerm = '') {
+            fetch('api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ search: searchTerm })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    populateBinItems(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching items:', error);
+                    alert('Failed to fetch items. Please try again later.');
+                });
+        }
 
-        window.location.href = `${baseUrl}?${urlParams.toString()}`;
-    }
+        function populateBinItems(items) {
+            const binItemList = document.getElementById('binItemList');
+            if (!binItemList) return;
 
-    function reloadPage() {
-        location.reload();
-    }
-</script>
+            binItemList.innerHTML = '';
+            items.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+                const itemNameDiv = document.createElement('div');
+                itemNameDiv.innerHTML = `<i>${item.item_name}</i>`;
+
+                const buttonDiv = document.createElement('div');
+                const eyeButton = document.createElement('button');
+                eyeButton.className = 'btn btn-sm btn-outline-primary';
+                eyeButton.innerHTML = '<i class="bi bi-eye"></i>';
+                eyeButton.addEventListener('click', function () {
+                    redirectToBinTemplate(item);
+                });
+
+                buttonDiv.appendChild(eyeButton);
+                listItem.appendChild(itemNameDiv);
+                listItem.appendChild(buttonDiv);
+                binItemList.appendChild(listItem);
+            });
+        }
+
+        function redirectToBinTemplate(item) {
+            const baseUrl = 'b-template.php';
+            const urlParams = new URLSearchParams();
+            urlParams.append('itemName', item.item_name);
+            urlParams.append('description', item.description);
+
+            window.location.href = `${baseUrl}?${urlParams.toString()}`;
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+    </script>
 
 
 
@@ -899,7 +921,6 @@
             });
         });
     </script>
-
 
 </body>
 

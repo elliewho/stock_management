@@ -158,7 +158,7 @@
                         Article:
                     </th>
                     <th colspan="6" style="font-size: 19px; border-left: none; border-right: none;" class="itemname">
-                        <span id="itemName">Item Name</span>
+                        <span style="vertical-align: -8px" id="itemName"></span>
                     </th>
                     <th style="border-left: none; border-bottom: none;" class="last1"></th>
                 </tr>
@@ -168,7 +168,7 @@
                         Description:
                     </th>
                     <th colspan="6" style="font-size: 19px; border-left: none; border-right: none;" class="descript">
-                    <span id="description">Description</span>
+                    <span style="vertical-align: -8px" id="description"></span>
                     </th>
                     <th style="border-left: none; border-top: none; border-bottom: none" class="last2"></th>
                 </tr>

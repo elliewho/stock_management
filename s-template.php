@@ -464,9 +464,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const itemName = urlParams.get('itemName');
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemName = urlParams.get('itemName');
 
     document.getElementById('itemName').textContent = itemName;
 
@@ -488,7 +488,7 @@
             console.error('Error fetching description:', error);
             document.getElementById('description').textContent = 'Error loading description';
         });
-});
+        });
 
     </script>  
 </body>

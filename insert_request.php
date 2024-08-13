@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->begin_transaction();
 
+    // Get the current balance_end
     $stmt_balance = $conn->prepare("SELECT balance_end FROM items WHERE item_name = ?");
     $stmt_balance->bind_param("s", $item_name);
     $stmt_balance->execute();
@@ -18,19 +19,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_balance->close();
 
     if ($current_balance >= $quantity) {
-        $stmt_update = $conn->prepare("UPDATE items SET utilization = utilization + ?, balance_end = balance_end - ? WHERE item_name = ?");
-        $stmt_update->bind_param("iis", $quantity, $quantity, $item_name);
+        // Calculate new balance_end
+        $new_balance_end = $current_balance - $quantity;
+
+        // Update utilization and balance_end in items table
+        $stmt_update = $conn->prepare("UPDATE items SET utilization = utilization + ?, balance_end = ? WHERE item_name = ?");
+        $stmt_update->bind_param("iis", $quantity, $new_balance_end, $item_name);
         $success_update = $stmt_update->execute();
         $stmt_update->close();
 
         if ($success_update) {
-            $stmt_insert = $conn->prepare("INSERT INTO request (item_name, description, quantity, destination, request_date) VALUES (?, ?, ?, ?, ?)");
-            $stmt_insert->bind_param("ssiss", $item_name, $description, $quantity, $destination, $request_date);
+            // Insert into request table with new balance_end
+            $stmt_insert = $conn->prepare("INSERT INTO request (item_name, description, quantity, destination, request_date, balance_end) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt_insert->bind_param("ssissi", $item_name, $description, $quantity, $destination, $request_date, $new_balance_end);
             $success_insert = $stmt_insert->execute();
             $stmt_insert->close();
 
             if ($success_insert) {
-
                 $conn->commit();
                 $conn->close();
                 header("Location: success.php");
@@ -57,4 +62,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: home.php");
     exit;
 }
+
 ?>
