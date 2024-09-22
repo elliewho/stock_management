@@ -7,131 +7,8 @@
     <title>Bin Card</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="https://www.parfait.com.ph/images/product-icon/philhealth-icon.png">
-    <style>
-        body {
-            font-family: Georgia, Times, Times New Roman, serif;
-        }
-
-        @media print {
-
-            .print-button,
-            .blue-button {
-                display: none !important;
-            }
-
-        }
-
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid black !important;
-        }
-
-        .table thead th {
-            border: 1px solid black;
-            padding: 3px;
-        }
-
-        .table tbody {
-            height: 1100px;
-            overflow-y: auto;
-        }
-
-        .table tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .small-text {
-            font-size: 0.8rem;
-        }
-
-        .dri {
-            border-bottom: none;
-            text-align: center;
-            vertical-align: middle;
-            width: 18%;
-        }
-
-        .sws {
-            border-bottom: none;
-            text-align: center;
-            vertical-align: middle;
-            width: 32%;
-        }
-
-        .issue {
-            width: 15%;
-        }
-
-        button {
-            outline: none;
-            cursor: pointer;
-            border: none;
-            padding: 0.9rem 2rem;
-            margin: 0;
-            font-family: inherit;
-            font-size: inherit;
-            position: relative;
-            display: inline-block;
-            letter-spacing: 0.05rem;
-            font-weight: 700;
-            font-size: 17px;
-            border-radius: 500px;
-            overflow: hidden;
-            background: #66ff66;
-            color: ghostwhite;
-        }
-
-        button span {
-            position: relative;
-            z-index: 10;
-            transition: color 0.4s;
-        }
-
-        button:hover span {
-            color: yellow;
-        }
-
-        button::before,
-        button::after {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        button::before {
-            content: "";
-            background: #00C000;
-            width: 120%;
-            left: -10%;
-            transform: skew(30deg);
-            transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
-        }
-
-        button:hover::before {
-            transform: translate3d(100%, 0, 0);
-        }
-
-        .phbc {
-            border-bottom-style: hidden;
-
-        }
-
-        .last1{
-            border-bottom-style: hidden;
-        }
-
-        .arti,
-        .itemname,
-        .last1 {
-            border-left-style: hidden;
-            border-right-style: hidden;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="b-style.css">
 </head>
-
 <body>
     <button class="btn  print-button" style="float: right; margin-right: 60px; margin-top: 0px"
         onclick="window.print()"><span>Print</span>
@@ -143,7 +20,7 @@
                     d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
             </svg></span></button>
     <div class="container mt-8">
-        <table class="table">
+    <table class="table">
             <thead>
                 <tr style="background-color: #e9ecef" class="phbc">
                     <th colspan="8"
@@ -151,8 +28,6 @@
                         PhilHealth<br>Bin Card<br>Your Partner in Health
                     </th>
                 </tr>
-
-
                 <tr style="background-color: #e9ecef;" class="art">
                     <th colspan="1" style="text-align: left; font-size: 19px; border-right: none; border-bottom: none;" class="arti">
                         Article:
@@ -162,27 +37,23 @@
                     </th>
                     <th style="border-left: none; border-bottom: none;" class="last1"></th>
                 </tr>
-
                 <tr style="background-color: #e9ecef;" class="desc">
                     <th colspan="1" style="font-size: 19px; border-right: none; border-top: none; border-bottom: none" class="descrip">
                         Description:
                     </th>
                     <th colspan="6" style="font-size: 19px; border-left: none; border-right: none;" class="descript">
-                    <span style="vertical-align: -8px" id="description"></span>
+                        <span style="vertical-align: -8px" id="description"></span>
                     </th>
                     <th style="border-left: none; border-top: none; border-bottom: none" class="last2"></th>
                 </tr>
-
                 <tr style="background-color: #e9ecef" class="a">
                     <th style="border-right: none; border-top: none" class="b"></th>
                     <th colspan="6" style="border-left: none; border-right: none;"></th>
-                    <th style="border-left: none;  border-top: none;" class="last3"></th>
+                    <th style="border-left: none; border-top: none;" class="last3"></th>
                 </tr>
-
-
                 <tr>
                     <th colspan="2" rowspan="2"
-                        style="border-bottom: none; text-align: center; vertical-align: middle; padding: 17px;" id=dri
+                        style="border-bottom: none; text-align: center; vertical-align: middle; padding: 17px;" id="dri"
                         class="dri">Date<br>Received/Issue</th>
                     <th colspan="2" rowspan="2" style="border-bottom: none; text-align: center; vertical-align: middle"
                         class="sws">SWS/RIS NO. Transaction no.</th>
@@ -200,15 +71,14 @@
                     <th style="border-bottom: none; text-align: center; vertical-align: middle; padding: 6px">
                         Balance<br>on hand</th>
                 </tr>
-
             </thead>
-            <tbody class="table-bordered">
+            <tbody class="table-bordered" id="requestHistory">
                 <tr>
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -216,7 +86,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -224,7 +94,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -232,7 +102,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -240,7 +110,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -248,7 +118,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -256,7 +126,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -264,7 +134,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -272,7 +142,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -280,7 +150,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -288,7 +158,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -296,7 +166,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -304,7 +174,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -312,7 +182,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -320,7 +190,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -328,7 +198,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -336,7 +206,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -344,7 +214,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -352,7 +222,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -360,7 +230,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -368,7 +238,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -376,7 +246,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -384,7 +254,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -392,7 +262,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -400,7 +270,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -408,7 +278,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -416,7 +286,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -424,7 +294,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -432,7 +302,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
                 <tr>
@@ -440,7 +310,7 @@
                     <td colspan="2" style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
-                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 20px"></td>
+                    <td style="text-align: center; vertical-align: middle; padding: 1px; font-size: 18px"></td>
                     <td style="text-align: center; vertical-align: middle; padding: 1px"></td>
                 </tr>
             </tbody>
@@ -450,33 +320,96 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const itemName = urlParams.get('itemName');
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemName = urlParams.get('itemName');
 
-    document.getElementById('itemName').textContent = itemName;
+        document.getElementById('itemName').textContent = itemName;
 
-    fetch('get_description.php?itemName=' + encodeURIComponent(itemName))
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json(); 
-        })
-        .then(data => {
-            if (data && data.description) {
-                document.getElementById('description').textContent = data.description;
-            } else {
-                document.getElementById('description').textContent = '';
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching description:', error);
-            document.getElementById('description').textContent = 'Error loading description';
+        fetch('get_description.php?itemName=' + encodeURIComponent(itemName))
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.description) {
+                    document.getElementById('description').textContent = data.description;
+                } else {
+                    document.getElementById('description').textContent = '';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching description:', error);
+                document.getElementById('description').textContent = 'Error loading description';
+            });
+
+        fetchRequestHistory(itemName);
+    });
+
+    function fetchRequestHistory(itemName) {
+        fetch('get_request_history.php?itemName=' + encodeURIComponent(itemName))
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (Array.isArray(data)) {
+                    updateTableWithRequests(data);
+                } else {
+                    console.error('Invalid data format:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching request history:', error);
+                alert('Failed to fetch request history. Please try again later.');
+            });
+    }
+
+    function updateTableWithRequests(requests) {
+        const tableBody = document.querySelector('#requestHistory');
+        
+        tableBody.innerHTML = '';
+
+        requests.forEach((request, index) => {
+            const row = tableBody.insertRow();
+            const formattedDate = formatDate(request.request_date);
+            row.innerHTML = `
+                <td colspan="2" style="text-align: center; vertical-align: middle;">${formattedDate || ''}</td>
+                <td colspan="2" style="text-align: center; vertical-align: middle;"></td>
+                <td style="text-align: center; vertical-align: middle;"></td>
+                <td style="text-align: center; vertical-align: middle;"></td>
+                <td style="text-align: center; vertical-align: middle; font-size: 20px;">${request.balance_end || ''}</td>
+                <td style="text-align: center; vertical-align: middle;"></td>
+            `;
         });
-});
 
-    </script> 
+        const numberOfRows = 30;
+        const currentRows = tableBody.rows.length;
+
+        for (let i = currentRows; i < numberOfRows; i++) {
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td colspan="2" style="text-align: center; vertical-align: middle;"></td>
+                <td colspan="2" style="text-align: center; vertical-align: middle;"></td>
+                <td style="text-align: center; vertical-align: middle;"></td>
+                <td style="text-align: center; vertical-align: middle;"></td>
+                <td style="text-align: center; vertical-align: middle; font-size: 20px;"></td>
+                <td style="text-align: center; vertical-align: middle;"></td>
+            `;
+        }
+    }
+
+    function formatDate(dateString) {
+        if (!dateString) return '';
+
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    }
+</script>
 </body>
 
 </html>

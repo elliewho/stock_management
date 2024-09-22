@@ -327,14 +327,14 @@
                                 placeholder="Enter Item Name" required>
                         </div>
                         <div class="form-group">
-                            <label for="quantity">Quantity</label>
-                            <input type="number" class="form-control" id="quantity" name="quantity"
-                                placeholder="Enter Quantity" required>
-                        </div>
-                        <div class="form-group">
                             <label for="description">Description</label>
                             <input type="text" class="form-control" id="description" name="description"
                                 placeholder="Enter Description">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity"
+                                placeholder="Enter Quantity" required>
                         </div>
                         <div class="form-group">
                             <label for="category">Category</label>
