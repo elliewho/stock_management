@@ -94,33 +94,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        if ($result->num_rows > 0) {
-                            $result->data_seek(0);
+                            <?php
+                            if ($result->num_rows > 0) {
+                                $result->data_seek(0);
 
-                            // Store rows in an array to sort them
-                            $rows = [];
-                            while ($row = $result->fetch_assoc()) {
-                                if ($row["category"] == "Office Supply") {
-                                    $rows[] = $row;
+                                $rows = [];
+                                while ($row = $result->fetch_assoc()) {
+                                    if ($row["category"] == "Office Supply") {
+                                        $rows[] = $row;
+                                    }
                                 }
-                            }
 
-                            // Sort rows alphabetically by item_name
-                            usort($rows, function ($a, $b) {
-                                return strcmp($a["item_name"], $b["item_name"]);
-                            });
+                                usort($rows, function ($a, $b) {
+                                    return strcmp($a["item_name"], $b["item_name"]);
+                                });
 
-                            // Display sorted rows
-                            foreach ($rows as $row) {
-                                $total_received_quantity = $row["receivedQuantity"];
-                                echo "<tr>";
-                                echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
-                                echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
-                                echo "<td style='text-align: center'>" . $total_received_quantity . "</td>";
-                                echo "<td style='text-align: center'>" . $row["utilization"] . "</td>";
-                                echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>";
-                                echo "<td style='text-align: center'>
+                                foreach ($rows as $row) {
+                                    $total_received_quantity = $row["receivedQuantity"];
+                                    echo "<tr>";
+                                    echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $total_received_quantity . "</td>";
+                                    echo "<td style='text-align: center'>" . $row["utilization"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>";
+                                    echo "<td style='text-align: center'>
                                     <button class='btn btn-success btn-sm' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='setUpdateModalData(" . json_encode($row) . ")'>
                                         <i class='bi bi-plus-slash-minus'></i>
                                     </button>
@@ -128,13 +125,13 @@
                                         <i class='bi bi-backspace'></i>
                                     </button>
                                 </td>";
-                                echo "</tr>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
                             }
-                        } else {
-                            echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
-                        }
-                        $conn->close();
-                        ?>
+                            $conn->close();
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -189,33 +186,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        if ($result->num_rows > 0) {
-                            $result->data_seek(0);
+                            <?php
+                            if ($result->num_rows > 0) {
+                                $result->data_seek(0);
 
-                            // Store rows in an array to sort them
-                            $rows = [];
-                            while ($row = $result->fetch_assoc()) {
-                                if ($row["category"] == "IT Supply") {
-                                    $rows[] = $row;
+                                $rows = [];
+                                while ($row = $result->fetch_assoc()) {
+                                    if ($row["category"] == "IT Supply") {
+                                        $rows[] = $row;
+                                    }
                                 }
-                            }
 
-                            // Sort rows alphabetically by item_name
-                            usort($rows, function ($a, $b) {
-                                return strcmp($a["item_name"], $b["item_name"]);
-                            });
+                                usort($rows, function ($a, $b) {
+                                    return strcmp($a["item_name"], $b["item_name"]);
+                                });
 
-                            // Display sorted rows
-                            foreach ($rows as $row) {
-                                $total_received_quantity = $row["receivedQuantity"];
-                                echo "<tr>";
-                                echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
-                                echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
-                                echo "<td style='text-align: center'>" . $total_received_quantity . "</td>";
-                                echo "<td style='text-align: center'>" . $row["utilization"] . "</td>";
-                                echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>";
-                                echo "<td style='text-align: center'>
+                                foreach ($rows as $row) {
+                                    $total_received_quantity = $row["receivedQuantity"];
+                                    echo "<tr>";
+                                    echo "<td style='text-align: center'>" . $row["item_name"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $row["quantity"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $total_received_quantity . "</td>";
+                                    echo "<td style='text-align: center'>" . $row["utilization"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $row["balance_end"] . "</td>";
+                                    echo "<td style='text-align: center'>
                                     <button class='btn btn-success btn-sm' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='setUpdateModalData(" . json_encode($row) . ")'>
                                         <i class='bi bi-plus-slash-minus'></i>
                                     </button>
@@ -223,12 +217,12 @@
                                         <i class='bi bi-backspace'></i>
                                     </button>
                                 </td>";
-                                echo "</tr>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
                             }
-                        } else {
-                            echo "<tr><td colspan='6' style='text-align: center'>No items found</td></tr>";
-                        }
-                        ?>
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -248,7 +242,6 @@
         }
 
         function submitUpdateForm() {
-            // Add your form submission logic here
             document.getElementById('updateForm').submit();
         }
     </script>
@@ -290,7 +283,6 @@
     </div>
     <script>
         function submitUpdateForm() {
-            // Display SweetAlert confirmation
             Swal.fire({
                 title: 'Your are updating this item.',
                 text: "You can always update this",
@@ -301,7 +293,6 @@
                 confirmButtonText: 'Yes, update it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // User confirmed, submit the form
                     console.log('Update button clicked');
                     document.getElementById('updateForm').submit();
                 }
@@ -386,7 +377,6 @@
                         <tbody id="tableBody">
                             <?php
                             include 'db_connect.php';
-                            // Fetch items and their totals per destination
                             $sql = "SELECT item_name,
                             SUM(CASE WHEN destination = 'MALASAKIT / CARES' THEN quantity ELSE 0 END) AS malasakit_cares,
                             SUM(CASE WHEN destination = 'MTS / OM' THEN quantity ELSE 0 END) AS mts_om,
@@ -553,7 +543,6 @@
                         .then(data => {
                             if (data.description) {
                                 document.getElementById('description').value = data.description;
-                                // Also update the hidden field with the description
                                 document.getElementById('hidden_description').value = data.description;
                             } else {
                                 document.getElementById('description').value = '';
@@ -645,15 +634,17 @@
             const fileList = document.getElementById('fileList');
             if (!fileList) return;
 
+            items.sort((a, b) => a.item_name.localeCompare(b.item_name));
+
             fileList.innerHTML = '';
             items.forEach(item => {
                 const listItem = document.createElement('li');
                 listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
 
                 const itemDiv = document.createElement('div');
-                const italicizedName = document.createElement('i'); // Create <i> element
-                italicizedName.textContent = item.item_name; // Set item name as text content
-                itemDiv.appendChild(italicizedName); // Append <i> to the div
+                const italicizedName = document.createElement('i');
+                italicizedName.textContent = item.item_name;
+                itemDiv.appendChild(italicizedName);
 
                 const buttonDiv = document.createElement('div');
                 const eyeButton = document.createElement('button');
@@ -670,6 +661,7 @@
             });
         }
 
+
         function redirectToStockCard(item) {
             const baseUrl = 's-template.php';
             const urlParams = new URLSearchParams();
@@ -683,7 +675,6 @@
             location.reload();
         }
     </script>
-
 
 
     <!-- bin card modal -->
@@ -762,6 +753,8 @@
             const binItemList = document.getElementById('binItemList');
             if (!binItemList) return;
 
+            items.sort((a, b) => a.item_name.localeCompare(b.item_name));
+
             binItemList.innerHTML = '';
             items.forEach(item => {
                 const listItem = document.createElement('li');
@@ -798,9 +791,7 @@
             location.reload();
         }
     </script>
-
-
-
+    
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -817,7 +808,6 @@
             $('.delete-btn').click(function () {
                 var rowId = $(this).data('id');
 
-                // Using SweetAlert for confirmation
                 Swal.fire({
                     title: "Are you sure?",
                     text: "You won't be able to revert this! balaka kaw din",
@@ -828,14 +818,12 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // User confirmed deletion
                         $.ajax({
                             url: 'delete.php',
                             type: 'POST',
                             data: { id: rowId },
                             success: function (response) {
                                 if (response == 'success') {
-                                    // Remove the table row if deletion was successful
                                     $(this).closest('tr').remove();
                                     Swal.fire({
                                         title: "Deleted!",
@@ -843,7 +831,6 @@
                                         icon: "success"
                                     });
                                 } else {
-                                    // Alert if deletion failed
                                     Swal.fire({
                                         title: "Error",
                                         text: "Failed to delete item. Please try again.",
@@ -852,7 +839,6 @@
                                 }
                             }.bind(this),
                             error: function () {
-                                // Alert if AJAX request fails
                                 Swal.fire({
                                     title: "Error",
                                     text: "Error occurred while deleting item.",
@@ -861,7 +847,6 @@
                             }
                         });
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        // User clicked cancel, show a message
                         Swal.fire({
                             title: "Cancelled",
                             text: "Your file is safe hahahaha ;P",
@@ -871,17 +856,12 @@
                 });
             });
         });
-    </script>
 
-    <script>
         function reloadPage() {
             location.reload();
         }
-    </script>
 
-    <script>
         document.getElementById('rModal').addEventListener('show.bs.modal', function () {
-            // Close all modals except for the rModal
             var allModals = document.querySelectorAll('.modal');
             allModals.forEach(function (modal) {
                 if (modal.id !== 'rModal' && modal.classList.contains('show')) {
@@ -890,25 +870,19 @@
                 }
             });
         });
-    </script>
 
-    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const backButton = document.querySelector('.back-to-inventory');
             backButton.addEventListener('click', function () {
                 const rModal = document.getElementById('rModal');
                 const invModal = document.getElementById('invModal');
-                // Close the rModal
                 const rModalInstance = bootstrap.Modal.getInstance(rModal);
                 rModalInstance.hide();
-                // Open the invModal
                 const invModalInstance = bootstrap.Modal.getInstance(invModal);
                 invModalInstance.show();
             });
         });
-    </script>
 
-    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const updateModalButtons = document.querySelectorAll('.btn-success');
 
@@ -921,7 +895,5 @@
             });
         });
     </script>
-
 </body>
-
 </html>

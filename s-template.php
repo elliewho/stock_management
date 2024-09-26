@@ -377,7 +377,7 @@
             }
         });
     }
-
+    
     function formatDate(dateString) {
         if (!dateString) return '';
 
